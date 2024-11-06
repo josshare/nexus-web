@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Card, CardBody } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
@@ -7,8 +7,38 @@ import DatePick from "./DatePick";
 import IconButtons from "./IconButton";
 import { Link } from "@nextui-org/link";
 
-const AuthForm: React.FC = () => {
-  const [selected, setSelected] = React.useState<React.Key>("login");
+const FlightSearchForm: React.FC = () => {
+  const [selected, setSelected] = useState<React.Key>("login");
+  const [destinations, setDestinations] = useState<string[]>([]);
+  const [filteredDestinations, setFilteredDestinations] = useState<string[]>([]);
+  const [origen, setOrigen] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:8080/flights")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const destinationList = data.map((item: { destination: string }) => item.destination);
+        setDestinations(destinationList);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch destinations:", error);
+      });
+  }, []);
+
+  const handleOrigenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setOrigen(value);
+    setFilteredDestinations(
+      destinations.filter((destination) =>
+        destination.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -31,7 +61,29 @@ const AuthForm: React.FC = () => {
           >
             <Tab key="login" title="One way">
               <form className="flex flex-col gap-4">
-                <Input isRequired label="Origen" placeholder="Ingrese su Origen" />
+                <Input
+                  isRequired
+                  label="Origen"
+                  placeholder="Ingrese su Origen"
+                  value={origen}
+                  onChange={handleOrigenChange}
+                />
+                {filteredDestinations.length > 0 && (
+                  <ul className="bg-white border border-gray-300 mt-1 max-h-40 overflow-y-auto">
+                    {filteredDestinations.map((destination, index) => (
+                      <li
+                        key={index}
+                        className="p-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => {
+                          setOrigen(destination);
+                          setFilteredDestinations([]);
+                        }}
+                      >
+                        {destination}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <Input isRequired label="Destino" placeholder="Ingrese su Destino" />
                 <DatePick />
                 <IconButtons />
@@ -85,4 +137,4 @@ const AuthForm: React.FC = () => {
   );
 };
 
-export default AuthForm;
+export default FlightSearchForm;

@@ -14,7 +14,7 @@ const FlightSearchForm: React.FC = () => {
   const [origen, setOrigen] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/flights")
+    fetch("http://ec2-3-226-155-191.compute-1.amazonaws.com/flights")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,7 +48,6 @@ const FlightSearchForm: React.FC = () => {
             fullWidth
             size="md"
             aria-label="Options"
-            selectedKey={selected}
             onSelectionChange={setSelected}
             color="primary"
             variant="underlined"

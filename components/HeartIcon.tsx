@@ -1,6 +1,13 @@
 // components/HeartIcon.js
 import React from "react";
 
+interface IconSvgProps {
+  size?: number;
+  width?: number;
+  height?: number;
+  [key: string]: any;
+}
+
 export const HeartIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Calendar } from "@nextui-org/react";
+import { Calendar } from "@nextui-org/calendar";
 import { today, getLocalTimeZone, isWeekend } from "@internationalized/date";
 import { useLocale } from "@react-aria/i18n";
 

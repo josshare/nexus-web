@@ -14,20 +14,9 @@ const FlightSearchForm: React.FC = () => {
   const [origen, setOrigen] = useState("");
 
   useEffect(() => {
-    fetch("http://ec2-3-226-155-191.compute-1.amazonaws.com/flights")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const destinationList = data.map((item: { destination: string }) => item.destination);
-        setDestinations(destinationList);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch destinations:", error);
-      });
+    // Replace the fetch call with the provided array list
+    const destinationList = ["New York", "Los Angeles", "Chicago", "Houston", "Miami"];
+    setDestinations(destinationList);
   }, []);
 
   const handleOrigenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +24,7 @@ const FlightSearchForm: React.FC = () => {
     setOrigen(value);
     setFilteredDestinations(
       destinations.filter((destination) =>
-        destination.toLowerCase().includes(value.toLowerCase())
+        destination?.toLowerCase().includes(value.toLowerCase())
       )
     );
   };

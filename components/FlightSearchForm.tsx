@@ -5,10 +5,10 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import DatePick from "./DatePick";
 import IconButtons from "./IconButton";
-import { Link } from "@nextui-org/link";
+// import { Link } from "@nextui-org/link";
 
 const FlightSearchForm: React.FC = () => {
-  const [selected, setSelected] = useState<React.Key>("login");
+  const [selected, setSelected] = useState<React.Key>("login"); // Remove if not used
   const [origins, setOrigins] = useState<string[]>([]);
   const [filteredOrigins, setFilteredOrigins] = useState<string[]>([]);
   const [origin, setOrigin] = useState("");
@@ -50,6 +50,9 @@ const FlightSearchForm: React.FC = () => {
         destination?.toLowerCase().includes(value.toLowerCase())
       )
     );
+  };
+  const handlePrintDate = () => {
+    console.log("Selected departure date:", departureDate);
   };
 
   return (
@@ -118,17 +121,23 @@ const FlightSearchForm: React.FC = () => {
                     ))}
                   </ul>
                 )}
-                <DatePick label="Departure Date" onChange={(date) => setDepartureDate(date)} />
+                <DatePick label="Departure Date" onChange={(date: string) => setDepartureDate(date)} />
+              
                 <IconButtons />
                 {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
                 <div className="flex gap-2 justify-end">
                   <Button fullWidth color="primary" onClick={(e) => {
                     e.preventDefault();
-                    if (!origin || !destination || !departureDate) {
+                    if (!origin || !destination || !handlePrintDate) {
                       setErrorMessage("Please fill in all required fields.");
                     } else {
                       setErrorMessage("");
-                      console.log("Searching for one-way flight...");
+                      console.log(JSON.stringify({
+  type: "one-way",
+  origin,
+  destination,
+  departureDate
+}));
                       // Add your search logic here
                     }
                   }}>
@@ -185,8 +194,8 @@ const FlightSearchForm: React.FC = () => {
                     ))}
                   </ul>
                 )}
-                <DatePick label="Departure Date" onChange={(date) => setDepartureDate(date)} />
-                <DatePick label="Return Date" onChange={(date) => setReturnDate(date)} />
+                <DatePick label="Departure Date" onChange={(date: string) => setDepartureDate(date)} />
+                <DatePick label="Return Date" onChange={(date: string) => setReturnDate(date)} />
                 <IconButtons />
                 {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
                 <div className="flex gap-2 justify-end">
@@ -198,7 +207,13 @@ const FlightSearchForm: React.FC = () => {
                       setErrorMessage("Return date must be after departure date.");
                     } else {
                       setErrorMessage("");
-                      console.log("Searching for round-trip flight...");
+                      console.log(JSON.stringify({
+  type: "round-trip",
+  origin,
+  destination,
+  departureDate,
+  returnDate
+}));
                       // Add your search logic here
                     }
                   }}>

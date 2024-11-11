@@ -4,20 +4,29 @@ import { today, getLocalTimeZone, isWeekend, CalendarDate } from "@international
 import { useLocale } from "@react-aria/i18n";
 import { DatePicker } from "@nextui-org/date-picker";
 
-const Cal: React.FC = () => {
+interface DatePickProps {
+  label: string;
+  onChange: (date: string) => void;
+}
+
+const DatePick: React.FC<DatePickProps> = ({ label, onChange }) => {
   const [date, setDate] = React.useState<CalendarDate>(today(getLocalTimeZone()));
   const { locale } = useLocale();
-  const isInvalid = isWeekend(date, locale);
+
+  const handleDateChange = (newDate: CalendarDate) => {
+    setDate(newDate);
+    onChange(newDate.toString());
+  };
 
   return (
     <DatePicker 
-      label="Fecha de salida"
+      label={label}
       className="max-w-full"
       isRequired
       value={date}
-      onChange={setDate}
+      onChange={handleDateChange}
     />
   );
 };
 
-export default Cal;
+export default DatePick;

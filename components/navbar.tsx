@@ -21,7 +21,7 @@ import {
   TwitterIcon,
   GithubIcon,
   DiscordIcon,
-  HeartFilledIcon,
+  LoginFilledIcon,
   SearchIcon,
   Logo,
 } from "@/components/icons";
@@ -98,10 +98,10 @@ export const Navbar = () => {
             as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
             href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
+            startContent={<LoginFilledIcon className="text-danger" />}
             variant="flat"
           >
-            Login
+            Log in
           </Button>
         </NavbarItem>
       </NavbarContent>

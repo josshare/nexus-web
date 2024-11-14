@@ -14,6 +14,7 @@ const AboutPage = () => {
   <div className="App">
 
     <header className="App-header">
+    <h1 className={title()}>This is the best Airline</h1>
       <Lottie animationData={animationData} />
     </header>
   </div>

@@ -1,3 +1,5 @@
+import Login from "@/app/login/page";
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
@@ -13,12 +15,8 @@ export const siteConfig = {
       href: "/rewards",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
+      label: "Check-in",
+      href: "/check-in",
     },
     {
       label: "About",
@@ -27,39 +25,24 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
+      label: "Home",
+      href: "/",
+    },
+    {
       label: "Rewards",
       href: "/rewards",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "Check-in",
+      href: "/check-in",
     },
     {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "About",
+      href: "/about",
     },
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
-    twitter: "https://twitter.com/getnextui",
-    docs: "https://nextui.org",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
+    github: "https://github.com/josshare/nexus-web",
+    login: "/login",
   },
 };

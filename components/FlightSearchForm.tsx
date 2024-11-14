@@ -26,7 +26,7 @@ const FlightSearchForm: React.FC = () => {
       .catch((error) => console.error("Error fetching origins:", error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8080/api/flights/destinations")
+    fetch("http://ec2-3-226-155-191.compute-1.amazonaws.com:8080/api/flights/destinations")
       .then((response) => response.json())
       .then((data) => setDestinations(data))
       .catch((error) => console.error("Error fetching destinations:", error));
@@ -123,8 +123,6 @@ const FlightSearchForm: React.FC = () => {
                 )}
                 <DatePick label="Departure Date" onChange={(date: string) => setDepartureDate(date)} />
               
-                <IconButtons />
-                {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
                 <div className="flex gap-2 justify-end">
                   <Button fullWidth color="primary" onClick={(e) => {
                     e.preventDefault();
@@ -196,8 +194,6 @@ const FlightSearchForm: React.FC = () => {
                 )}
                 <DatePick label="Departure Date" onChange={(date: string) => setDepartureDate(date)} />
                 <DatePick label="Return Date" onChange={(date: string) => setReturnDate(date)} />
-                <IconButtons />
-                {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
                 <div className="flex gap-2 justify-end">
                   <Button fullWidth color="primary" onClick={(e) => {
                     e.preventDefault();
